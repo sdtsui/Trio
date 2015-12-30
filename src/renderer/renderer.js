@@ -72,6 +72,12 @@
         return root;
 
         function handleCommonActions(command, execData) {
+            console.log("_____________")
+            console.log("'command'", command);
+            console.log("'command.action'", command.action);
+            console.log("'execData'", execData);
+            console.log("_____________")
+
             var el;
             switch (command.action) {
                 case 'openTag':

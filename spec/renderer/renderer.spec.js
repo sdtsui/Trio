@@ -5,14 +5,16 @@ describe('The Renderer Class', function() {
         el = document.createElement('div');
     });
 
-    it('should be able to create a tag', function() {
+    fit('should be able to create a tag', function() {
         var frag;
         t.open('div').close();
         frag = t.render();
         el.appendChild(frag);
 
         expect(el.innerHTML).toBe('<div></div>');
+        expect(t.renderHTML()).toBe('<div></div>');
     });
+
 
     it('should be able to add class', function() {
         var frag;
@@ -22,7 +24,9 @@ describe('The Renderer Class', function() {
         el.appendChild(frag);
 
         expect(el.innerHTML).toBe('<div class="inline"></div><div class="add"></div>');
+        expect(el.renderHTML()).toBe('<div class="inline"></div><div class="add"></div>');
     });
+
 
     it('should be able to add inline styling', function() {
         var frag;
@@ -35,7 +39,9 @@ describe('The Renderer Class', function() {
         el.appendChild(frag);
 
         expect(el.innerHTML).toBe('<div style="background-color: black; height: 10px; border: 1px solid blue;"></div>');
+        expect(el.renderHTML()).toBe('<div style="background-color: black; height: 10px; border: 1px solid blue;"></div>');
     });
+
 
     it('should be able to add attributes', function() {
         var frag;
@@ -49,7 +55,9 @@ describe('The Renderer Class', function() {
         el.appendChild(frag);
 
         expect(el.innerHTML).toBe('<input disabled="true"><div contenteditable="true"></div>');
+        expect(el.renderHTML()).toBe('<input disabled="true"><div contenteditable="true"></div>');
     });
+
 
     it('should be able to render multiple times', function() {
         var frag, fragTwo;
@@ -65,8 +73,9 @@ describe('The Renderer Class', function() {
         el.appendChild(frag);
         elTwo.appendChild(fragTwo);
         expect(el.innerHTML).toBe('<input disabled="true"><div contenteditable="true"></div>');
+        expect(el.renderHTML()).toBe('<input disabled="true"><div contenteditable="true"></div>');
         expect(elTwo.innerHTML).toBe('<input disabled="true"><div contenteditable="true"></div>');
-
+        expect(elTwo.renderHTML).toBe('<input disabled="true"><div contenteditable="true"></div>');
     });
 
     it('should be able to render ifs', function() {
@@ -83,6 +92,8 @@ describe('The Renderer Class', function() {
         el.appendChild(frag);
 
         expect(el.innerHTML).toBe('<div id="parent"><span class="true"></span></div>');
+        expect(el.renderHTML()).toBe('<div id="parent"><span class="true"></span></div>');
+
 
         t = Trio.Renderer.createTemplate();
         el.innerHTML = "";
@@ -100,7 +111,9 @@ describe('The Renderer Class', function() {
         el.appendChild(frag);
 
         expect(el.innerHTML).toBe('<div id="parent"><span class="false"></span></div>');
+        expect(el.renderHTML()).toBe('<div id="parent"><span class="false"></span></div>');
     });
+
 
     it('should be able to render each', function() {
         var frag;
@@ -116,7 +129,10 @@ describe('The Renderer Class', function() {
         el.appendChild(frag);
 
         expect(el.innerHTML).toBe('<div id="parent"><span class="number"></span><span class="number"></span><span class="number"></span><span class="number"></span><span class="number"></span></div>');
+        expect(el.renderHTML()).toBe('<div id="parent"><span class="number"></span><span class="number"></span><span class="number"></span><span class="number"></span><span class="number"></span></div>');
+
     });
+
 
     it('should be able to pass data into render', function() {
         var frag;
@@ -149,6 +165,8 @@ describe('The Renderer Class', function() {
         el.appendChild(frag);
 
         expect(el.innerHTML).toBe('<div id="parent"><span class="children"><span class="grandchildren"><span class="more"></span></span><div class="number"></div><div class="number"></div><div class="number"></div><div class="number"></div><div class="number"></div></span></div>');
+        expect(el.renderHTML()).toBe('<div id="parent"><span class="children"><span class="grandchildren"><span class="more"></span></span><div class="number"></div><div class="number"></div><div class="number"></div><div class="number"></div><div class="number"></div></span></div>');
+
 
         function more(d) {
             return d.more;
@@ -198,6 +216,8 @@ describe('The Renderer Class', function() {
         el.appendChild(frag);
 
         expect(el.innerHTML).toBe('<div id="parent"><span class="children"><span class="grandchildren"><span class="more"></span></span><div class="number"><div class="letter">a</div><div class="letter">b</div><div class="letter">c</div><div class="letter">d</div><div class="letter">e</div></div><div class="number"><div class="letter">a</div><div class="letter">b</div><div class="letter">c</div><div class="letter">d</div><div class="letter">e</div></div><div class="number"><div class="letter">a</div><div class="letter">b</div><div class="letter">c</div><div class="letter">d</div><div class="letter">e</div></div><div class="number"><div class="letter">a</div><div class="letter">b</div><div class="letter">c</div><div class="letter">d</div><div class="letter">e</div></div><div class="number"><div class="letter">a</div><div class="letter">b</div><div class="letter">c</div><div class="letter">d</div><div class="letter">e</div></div></span></div>');
+        expect(el.renderHTML()).toBe('<div id="parent"><span class="children"><span class="grandchildren"><span class="more"></span></span><div class="number"><div class="letter">a</div><div class="letter">b</div><div class="letter">c</div><div class="letter">d</div><div class="letter">e</div></div><div class="number"><div class="letter">a</div><div class="letter">b</div><div class="letter">c</div><div class="letter">d</div><div class="letter">e</div></div><div class="number"><div class="letter">a</div><div class="letter">b</div><div class="letter">c</div><div class="letter">d</div><div class="letter">e</div></div><div class="number"><div class="letter">a</div><div class="letter">b</div><div class="letter">c</div><div class="letter">d</div><div class="letter">e</div></div><div class="number"><div class="letter">a</div><div class="letter">b</div><div class="letter">c</div><div class="letter">d</div><div class="letter">e</div></div></span></div>');
+
 
         function more(d) {
             return d.more;
@@ -232,6 +252,7 @@ describe('The Renderer Class', function() {
             el.appendChild(res);
 
             expect(el.innerHTML).toBe('<div id="parent">Chi Kei Chan</div><div id="parent">Chi Kei Chan</div><div id="parent">Chi Kei Chan</div>');
+            expect(el.renderHTML()).toBe('<div id="parent">Chi Kei Chan</div><div id="parent">Chi Kei Chan</div><div id="parent">Chi Kei Chan</div>');
 
             t.patch(el, {
                 name: 'Chi Kei',
@@ -240,6 +261,7 @@ describe('The Renderer Class', function() {
             });
 
             expect(el.innerHTML).toBe('<div id="parent">Chi Kei</div><div id="parent">Chi Chan</div><div id="parent">Jacky Chan</div>');
+            expect(el.renderHTML()).toBe('<div id="parent">Chi Kei</div><div id="parent">Chi Chan</div><div id="parent">Jacky Chan</div>');
 
             t.patch(el, {
                 name: '2',
@@ -248,13 +270,16 @@ describe('The Renderer Class', function() {
             });
 
             expect(el.innerHTML).toBe('<div id="parent">2</div><div id="parent">2</div><div id="parent">2</div>');
+            expect(el.renderHTML()).toBe('<div id="parent">2</div><div id="parent">2</div><div id="parent">2</div>');
 
             t.patch(el, {});
 
             expect(el.innerHTML).toBe('<div id="parent"></div><div id="parent"></div><div id="parent"></div>');
+            expect(el.renderHTML()).toBe('<div id="parent"></div><div id="parent"></div><div id="parent"></div>');
+
         });
 
-        it("should patch class", function() {
+        it("should patch class --- Tests Subject to Change ---", function() {
             var frag;
             t.open('div#parent')
                 .text(function(d) {return d.name})
