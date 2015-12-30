@@ -63,7 +63,7 @@
 
     Template.prototype.render = function(data) {
         // Root element to store DOMs
-        var root            = document.createDocumentFragment(),
+        var root            = document.createDocumentFragment(), //single level wrapper
         // Stacks to reference current context
             elements        = [];
 
@@ -77,6 +77,7 @@
             console.log("'command.action'", command.action);
             console.log("'execData'", execData);
             console.log("_____________")
+            https://gist.github.com/sdtsui/618e1fa09402e39736b1
 
             var el;
             switch (command.action) {
@@ -376,6 +377,11 @@
     //////////////////////////////////////////////////////
     /////////////////// Helper Methods ///////////////////
     //////////////////////////////////////////////////////
+    var trioVDom = {
+        createElement : function(tagName) {
+            return '<div></div>';
+        }
+    }
 
     function createTag(tag) {
         var tagName = parseTag(tag);
